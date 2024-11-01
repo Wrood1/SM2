@@ -29,7 +29,7 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
   DateTime? _maintenanceDate;
   DateTime? _expirationDate;
   Map<String, Map<String, String>> _locationRooms = {};
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   bool _isLoading = false;
   int _currentIndex = 0;
   String? factoryManagerId;
@@ -204,21 +204,21 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return Scaffold(
+      return const Scaffold(
         backgroundColor: Color(0xFFC3B5A7),
         body: Center(child: CircularProgressIndicator()),
       );
     }
 
     if (userLocation == null) {
-      return Scaffold(
+      return const Scaffold(
         backgroundColor: Color(0xFFC3B5A7),
         body: Center(child: Text('No access to any location')),
       );
     }
 
     return Scaffold(
-      backgroundColor: Color(0xFFC3B5A7),
+      backgroundColor: const Color(0xFFC3B5A7),
       body: Stack(
         children: [
           SafeArea(
@@ -235,7 +235,7 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
                     ],
                   ),
                 ),
-                SizedBox(height: 80),
+                const SizedBox(height: 80),
               ],
             ),
           ),
@@ -259,18 +259,18 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
 
   Widget _buildHeader() {
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Row(
         children: [
           if (selectedTool != null)
             IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white),
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () => setState(() => selectedTool = null),
             )
           else
-            Icon(Icons.construction, color: Colors.white),
-          SizedBox(width: 16),
-          Text(
+            const Icon(Icons.construction, color: Colors.white),
+          const SizedBox(width: 16),
+          const Text(
             'Tools',
             style: TextStyle(
               fontSize: 24,
@@ -278,9 +278,9 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
               color: Colors.white,
             ),
           ),
-          Spacer(),
+          const Spacer(),
           IconButton(
-            icon: Icon(Icons.notifications, color: Colors.white),
+            icon: const Icon(Icons.notifications, color: Colors.white),
             onPressed: _navigateToNotifications,
           ),
         ],
@@ -291,7 +291,7 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
   Widget _buildTabs() {
     return TabBar(
       controller: _tabController,
-      tabs: [
+      tabs: const [
         Tab(text: 'Tools'),
         Tab(text: 'Add New'),
       ],
@@ -305,12 +305,12 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: TextField(
             controller: _searchController,
             decoration: InputDecoration(
               hintText: 'Search Tools',
-              prefixIcon: Icon(Icons.search),
+              prefixIcon: const Icon(Icons.search),
               filled: true,
               fillColor: Colors.white.withOpacity(0.9),
               border: OutlineInputBorder(
@@ -325,7 +325,7 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
             stream: FirebaseFirestore.instance.collection('tools').snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
 
               var tools = snapshot.data!.docs.where((doc) {
@@ -335,7 +335,7 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
               }).toList();
 
               return ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 itemCount: tools.length,
                 itemBuilder: (context, index) {
                   final data = tools[index].data() as Map<String, dynamic>;
@@ -351,20 +351,20 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
 
   Widget _buildToolCard(Map<String, dynamic> data) {
     return Card(
-      margin: EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       color: Colors.white.withOpacity(0.9),
       child: ListTile(
-        contentPadding: EdgeInsets.all(16),
+        contentPadding: const EdgeInsets.all(16),
         title: Text(
           data['name'] ?? 'Unnamed Tool',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
           '${data['location']} - ${data['roomName']}',
           style: TextStyle(color: Colors.grey[600]),
         ),
-        trailing: Icon(Icons.arrow_forward_ios),
+        trailing: const Icon(Icons.arrow_forward_ios),
         onTap: () {
           setState(() {
             selectedTool = Tool(
@@ -383,21 +383,21 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
 
   Widget _buildToolDetail() {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         color: Colors.white.withOpacity(0.9),
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Icon(Icons.construction, size: 80, color: Colors.brown),
-              SizedBox(height: 20),
+              const Icon(Icons.construction, size: 80, color: Colors.brown),
+              const SizedBox(height: 20),
               Text(
                 selectedTool!.name,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _buildInfoRow('Location:', selectedTool!.location),
               _buildInfoRow('Room ID:', selectedTool!.roomId),
               _buildInfoRow('Expiration Date:', 
@@ -415,22 +415,22 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
 
   Widget _buildAddNewTool() {
     if (_isLoading) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         color: Colors.white.withOpacity(0.9),
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   '+ Add Tool',
                   style: TextStyle(
                     fontSize: 24,
@@ -438,7 +438,7 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
                     color: Colors.black87,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   decoration: InputDecoration(
                     hintText: 'Tool Name',
@@ -453,7 +453,7 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
                     value?.isEmpty ?? true ? 'Please enter a tool name' : null,
                   onSaved: (value) => _name = value!,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(
                     hintText: 'Location',
@@ -480,7 +480,7 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
                   validator: (value) => 
                     value == null ? 'Please select a location' : null,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(
                     hintText: 'Room',
@@ -504,14 +504,14 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
                   validator: (value) => 
                     value == null ? 'Please select a room' : null,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     Expanded(
                       child: TextFormField(
                         decoration: InputDecoration(
                           hintText: 'Expiration Date',
-                          suffixIcon: Icon(Icons.calendar_today),
+                          suffixIcon: const Icon(Icons.calendar_today),
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
@@ -530,12 +530,12 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
                           _expirationDate == null ? 'Please select a date' : null,
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Expanded(
                       child: TextFormField(
                         decoration: InputDecoration(
                           hintText: 'Maintenance Date',
-                          suffixIcon: Icon(Icons.calendar_today),
+                          suffixIcon: const Icon(Icons.calendar_today),
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
@@ -556,18 +556,18 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
                     ),
                   ],
                 ),
-                SizedBox(height: 32),
+                const SizedBox(height: 32),
                 Center(
                   child: ElevatedButton(
                     onPressed: _submitNewTool,
-                    child: Text('Add'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFC3B5A7),
-                      minimumSize: Size(200, 50),
+                      backgroundColor: const Color(0xFFC3B5A7),
+                      minimumSize: const Size(200, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
+                    child: Text('Add'),
                   ),
                 ),
               ],
@@ -580,7 +580,7 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
 
   Widget _buildInfoRow(String label, String value) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -591,10 +591,10 @@ class _ToolsPageState extends State<ToolsPage> with SingleTickerProviderStateMix
               color: Colors.grey[600],
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Text(
             value,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               color: Colors.black87,
             ),

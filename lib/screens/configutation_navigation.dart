@@ -6,7 +6,7 @@ import '../widgets/bottom_bar.dart';
 class SettingsNavigationPage extends StatefulWidget {
   final String userId;
 
-  const SettingsNavigationPage({Key? key, required this.userId}) : super(key: key);
+  const SettingsNavigationPage({super.key, required this.userId});
 
   @override
   State<SettingsNavigationPage> createState() => _SettingsNavigationPageState();
@@ -24,7 +24,7 @@ class _SettingsNavigationPageState extends State<SettingsNavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5E6D3),
+      backgroundColor: const Color(0xFFF5E6D3),
       body: Stack(
         children: [
           Positioned(
@@ -59,7 +59,7 @@ class _SettingsNavigationPageState extends State<SettingsNavigationPage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         _buildCard(
                           context,
                           'Location Management',
@@ -99,11 +99,11 @@ class _SettingsNavigationPageState extends State<SettingsNavigationPage> {
       child: Row(
         children: [
           IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.pop(context),
           ),
-          SizedBox(width: 12),
-          Text(
+          const SizedBox(width: 12),
+          const Text(
             'Settings',
             style: TextStyle(
               fontSize: 24,
@@ -123,7 +123,7 @@ class _SettingsNavigationPageState extends State<SettingsNavigationPage> {
         onTap: onTap,
         borderRadius: BorderRadius.circular(20),
         child: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.brown[200],
             borderRadius: BorderRadius.circular(20),
@@ -131,20 +131,20 @@ class _SettingsNavigationPageState extends State<SettingsNavigationPage> {
           child: Row(
             children: [
               Icon(icon, color: Colors.white, size: 40),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       title,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       subtitle,
                       style: TextStyle(
@@ -155,7 +155,7 @@ class _SettingsNavigationPageState extends State<SettingsNavigationPage> {
                   ],
                 ),
               ),
-              Icon(Icons.arrow_forward_ios, color: Colors.white),
+              const Icon(Icons.arrow_forward_ios, color: Colors.white),
             ],
           ),
         ),

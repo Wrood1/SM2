@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocationManagementPage extends StatefulWidget {
+  const LocationManagementPage({super.key});
+
   @override
   _LocationManagementPageState createState() => _LocationManagementPageState();
 }
@@ -67,7 +69,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
   final _formKey = GlobalKey<FormState>();
   final _locationNameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
-  List<Room> _rooms = [];
+  final List<Room> _rooms = [];
   bool _isLoading = false;
   String? _existingLocationId;
   double? _latitude;
@@ -170,7 +172,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
       for (String sensorId in sensorIds) {
         sensorWidgets.add(
           Padding(
-            padding: EdgeInsets.only(top: 8),
+            padding: const EdgeInsets.only(top: 8),
             child: Row(
               children: [
                 Expanded(
@@ -178,7 +180,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
                     initialValue: room.sensorValues[sensorId],
                     decoration: InputDecoration(
                       labelText: '$sensorId Value',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       suffixText: type == 'fire' ? '(0/1)' : '',
                     ),
                     keyboardType: TextInputType.number,
@@ -197,7 +199,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.remove_circle_outline, color: Colors.red),
+                  icon: const Icon(Icons.remove_circle_outline, color: Colors.red),
                   onPressed: () => setState(() => room.removeSensor(sensorId)),
                 ),
               ],
@@ -212,9 +214,9 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
 
   Widget _buildRoomCard(Room room, int index) {
     return Card(
-      margin: EdgeInsets.only(bottom: 15),
+      margin: const EdgeInsets.only(bottom: 15),
       child: Padding(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -223,13 +225,13 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
               children: [
                 Text(
                   'Room ${index + 1}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.delete, color: Colors.red),
+                  icon: const Icon(Icons.delete, color: Colors.red),
                   onPressed: () => _removeRoom(index),
                 ),
               ],
@@ -253,7 +255,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
             //     }
             //   },
             // ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             _buildSensorsList(room),
             _buildAddSensorDropdown(room),
           ],
@@ -264,14 +266,14 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
 
   Widget _buildAddSensorDropdown(Room room) {
     return Padding(
-      padding: EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.only(top: 8),
       child: DropdownButtonFormField<String>(
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           labelText: 'Add Sensor',
           border: OutlineInputBorder(),
         ),
         value: room.selectedSensorType,
-        hint: Text('Select a sensor type'),
+        hint: const Text('Select a sensor type'),
         items: _availableSensorTypes.map((String type) {
           return DropdownMenuItem<String>(
             value: type,
@@ -310,7 +312,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
       };
 
       // Save rooms data
-      _rooms.forEach((room) {
+      for (var room in _rooms) {
         Map<String, dynamic> roomData = {
           'ID': room.level,
           'level': room.level,
@@ -318,13 +320,13 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
         // Add all sensor values
         roomData.addAll(room.sensorValues);
         locationData[room.id] = roomData;
-      });
+      }
 
       DatabaseReference ref = FirebaseDatabase.instance.ref(locationId);
       await ref.set(locationData);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Location saved successfully')),
+        const SnackBar(content: Text('Location saved successfully')),
       );
       
       setState(() {
@@ -355,7 +357,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5E6D3),
+      backgroundColor: const Color(0xFFF5E6D3),
       body: Stack(
         children: [
           Positioned(
@@ -373,18 +375,18 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
                 _buildAppBar(context),
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Form(
                       key: _formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildLocationDetails(),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           _buildRoomsList(),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           _buildAddRoomButton(),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           _buildSaveButton(),
                           if (_existingLocationId != null)
                             _buildLocationLink(),
@@ -399,7 +401,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
           if (_isLoading)
             Container(
               color: Colors.black.withOpacity(0.5),
-              child: Center(child: CircularProgressIndicator()),
+              child: const Center(child: CircularProgressIndicator()),
             ),
         ],
       ),
@@ -413,19 +415,19 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.pop(context),
           ),
           Text(
             _existingLocationId != null ? 'Edit Location' : 'Add Location',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
           IconButton(
-            icon: Icon(Icons.info_outline, color: Colors.white),
+            icon: const Icon(Icons.info_outline, color: Colors.white),
             onPressed: _showLocationInfo,
           ),
         ],
@@ -435,7 +437,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
 
   Widget _buildLocationDetails() {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
@@ -443,7 +445,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
             blurRadius: 4,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -452,7 +454,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
         children: [
           TextFormField(
             controller: _locationNameController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Location Name',
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.location_on),
@@ -460,10 +462,10 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
             validator: (value) =>
                 value?.isEmpty ?? true ? 'Please enter a name' : null,
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           TextFormField(
             controller: _phoneNumberController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Phone Number',
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.phone),
@@ -472,9 +474,9 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
             validator: (value) =>
                 value?.isEmpty ?? true ? 'Please enter a phone number' : null,
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.brown[50],
               borderRadius: BorderRadius.circular(8),
@@ -489,19 +491,19 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
                     color: Colors.brown[700],
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Row(
                   children: [
-                    Icon(Icons.location_searching, size: 16, color: Colors.brown),
-                    SizedBox(width: 8),
+                    const Icon(Icons.location_searching, size: 16, color: Colors.brown),
+                    const SizedBox(width: 8),
                     Text('Latitude: ${_latitude?.toStringAsFixed(6) ?? "Loading..."}'),
                   ],
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Row(
                   children: [
-                    Icon(Icons.location_searching, size: 16, color: Colors.brown),
-                    SizedBox(width: 8),
+                    const Icon(Icons.location_searching, size: 16, color: Colors.brown),
+                    const SizedBox(width: 8),
                     Text('Longitude: ${_longitude?.toStringAsFixed(6) ?? "Loading..."}'),
                   ],
                 ),
@@ -527,12 +529,12 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton.icon(
-        icon: Icon(Icons.add),
-        label: Text('Add Room'),
+        icon: const Icon(Icons.add),
+        label: const Text('Add Room'),
         
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.brown[300],
-          padding: EdgeInsets.symmetric(vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 15),
           
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -549,13 +551,13 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.brown[700],
-          padding: EdgeInsets.symmetric(vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 15),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
         ),
         onPressed: _saveLocation,
-        child: Text(
+        child: const Text(
           'Save Location',
           style: TextStyle(
             fontSize: 16,
@@ -571,7 +573,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.brown[50],
           borderRadius: BorderRadius.circular(8),
@@ -580,7 +582,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
         child: Row(
           children: [
             Icon(Icons.link, color: Colors.brown[700]),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Expanded(
               child: Text(
                 'https://smart-64616-default-rtdb.firebaseio.com/$_existingLocationId',
@@ -601,7 +603,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Row(
+        title: const Row(
           children: [
             Icon(Icons.info_outline, color: Colors.brown),
             SizedBox(width: 10),
@@ -623,7 +625,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
         ),
         actions: [
           TextButton(
-            child: Text('Close'),
+            child: const Text('Close'),
             onPressed: () => Navigator.pop(context),
           ),
         ],
@@ -639,7 +641,7 @@ class _LocationManagementPageState extends State<LocationManagementPage> {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Text(
         text,
-        style: TextStyle(fontSize: 14),
+        style: const TextStyle(fontSize: 14),
       ),
     );
   }

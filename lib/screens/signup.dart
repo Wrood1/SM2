@@ -7,7 +7,7 @@ import 'dart:io';
 import 'login.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  const SignUpPage({super.key});
 
   @override
   _SignUpPageState createState() => _SignUpPageState();
@@ -52,7 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 20),
-                    Text(
+                    const Text(
                       'Register!',
                       style: TextStyle(
                         fontSize: 40,
@@ -336,7 +336,7 @@ Widget _buildPositionDropdown() {
     ),
     child: TextButton(
       onPressed: _isLoading ? null : _submitForm,
-      child: Text(
+      child: const Text(
         'sign up',
         style: TextStyle(
           fontSize: 18,

@@ -5,7 +5,7 @@ import 'dashboard.dart';
 import 'signup.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -344,7 +344,7 @@ class _LoginPageState extends State<LoginPage> {
               onChanged: (value) {
                 setState(() => _stayLoggedIn = value ?? false);
               },
-              fillColor: MaterialStateProperty.all(
+              fillColor: WidgetStateProperty.all(
                 const Color(0xFF795548),
               ),
             ),
@@ -425,12 +425,12 @@ class _LoginPageState extends State<LoginPage> {
       );
     },
     child: RichText(
-      text: TextSpan(
-        style: const TextStyle(
+      text: const TextSpan(
+        style: TextStyle(
           color: Color(0xFF795548),
           fontSize: 14,
         ),
-        children: const [
+        children: [
           TextSpan(text: "Don't have an account? "),
           TextSpan(
             text: 'Register here',

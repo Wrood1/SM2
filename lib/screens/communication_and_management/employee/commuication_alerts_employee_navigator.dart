@@ -7,9 +7,9 @@ class CommunicationAlertsPageEmployee extends StatefulWidget {
   final String userId;
 
   const CommunicationAlertsPageEmployee({
-    Key? key, 
+    super.key, 
     required this.userId,
-  }) : super(key: key);
+  });
 
   @override
   _CommunicationAlertsPageEmployeeState createState() => _CommunicationAlertsPageEmployeeState();
@@ -54,8 +54,8 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return Scaffold(
-        backgroundColor: const Color(0xFFF5E6D3),
+      return const Scaffold(
+        backgroundColor: Color(0xFFF5E6D3),
         body: Center(
           child: CircularProgressIndicator(),
         ),
@@ -64,8 +64,8 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
 
     if (_factoryManagerId == null) {
       print('ERROR: factoryManagerId is null for user: ${widget.userId}');
-      return Scaffold(
-        backgroundColor: const Color(0xFFF5E6D3),
+      return const Scaffold(
+        backgroundColor: Color(0xFFF5E6D3),
         body: Center(
           child: Text('Error: Unable to load user data'),
         ),
@@ -89,8 +89,8 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: Text(
                     'Report a Complaint',
                     style: TextStyle(
@@ -118,19 +118,19 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         ElevatedButton(
-                          child: Text('Submit Complaint'),
                           onPressed: _submitComplaint,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.brown[700],
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                           ),
+                          child: Text('Submit Complaint'),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Expanded(
                           child: _buildComplaintsList(),
                         ),
@@ -174,7 +174,7 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
 
         final complaints = snapshot.data?.docs ?? [];
@@ -189,7 +189,7 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
               print('ERROR: Error building complaint card at index $index');
               print('Error details: $e');
               print('Stack trace: $stackTrace');
-              return Card(
+              return const Card(
                 child: ListTile(
                   title: Text('Error loading complaint'),
                 ),
@@ -207,14 +207,14 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
       final response = complaint['response'] as Map<String, dynamic>?;
 
       return Card(
-        margin: EdgeInsets.symmetric(vertical: 8),
+        margin: const EdgeInsets.symmetric(vertical: 8),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
         child: InkWell(
           onTap: () => _showComplaintDetails(complaint, complaintId),
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -232,7 +232,7 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
                   ],
                 ),
                 if (response != null) ...[
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Responded by: ${response['responderName'] ?? 'Safety Person'}',
                     style: TextStyle(
@@ -251,7 +251,7 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
       print('Error details: $e');
       print('Stack trace: $stackTrace');
       print('Complaint data: $complaint');
-      return Card(
+      return const Card(
         child: ListTile(
           title: Text('Error displaying complaint'),
         ),
@@ -273,7 +273,7 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
     }
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: color.withOpacity(0.2),
         borderRadius: BorderRadius.circular(12),
@@ -294,34 +294,34 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
         builder: (context) => Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Complaint Details',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(complaint['complaint'] ?? ''),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               if (complaint['response'] != null) ...[
-                Text(
+                const Text(
                   'Response',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(complaint['response']['message'] ?? ''),
                 Text(
                   'Responded by: ${complaint['response']['responderName']}',
@@ -331,7 +331,7 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
                   ),
                 ),
               ],
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -342,7 +342,7 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
       print('Stack trace: $stackTrace');
       print('Complaint data: $complaint');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error displaying complaint details')),
+        const SnackBar(content: Text('Error displaying complaint details')),
       );
     }
   }
@@ -365,7 +365,7 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
 
       print('Successfully submitted complaint');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Complaint submitted successfully')),
+        const SnackBar(content: Text('Complaint submitted successfully')),
       );
 
       _complaintController.clear();
@@ -378,7 +378,7 @@ class _CommunicationAlertsPageEmployeeState extends State<CommunicationAlertsPag
       print('Complaint text: ${_complaintController.text}');
       
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to submit complaint. Please try again.')),
+        const SnackBar(content: Text('Failed to submit complaint. Please try again.')),
       );
     }
   }

@@ -8,10 +8,10 @@ class CustomBottomBar extends StatelessWidget {
   final Function(int) onTap;
   
   const CustomBottomBar({
-    Key? key,
+    super.key,
     required this.currentIndex,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   Future<Map<String, String>> _getUserData() async {
     final User? currentUser = FirebaseAuth.instance.currentUser;

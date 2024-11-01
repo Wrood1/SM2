@@ -18,10 +18,10 @@ class DashboardPage extends StatefulWidget {
   final String userPosition;
   
   const DashboardPage({
-    Key? key,
+    super.key,
     required this.userId,
     required this.userPosition,
-  }) : super(key: key);
+  });
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
@@ -56,7 +56,7 @@ class _DashboardPageState extends State<DashboardPage> {
               // Perform logout logic here, e.g., using FirebaseAuth
               FirebaseAuth.instance.signOut().then((_) {
                 Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
                   (route) => false,
                 );
               });
@@ -275,10 +275,10 @@ class _DashboardPageState extends State<DashboardPage> {
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               itemBuilder: (BuildContext context) => [
-                                PopupMenuItem<String>(
+                                const PopupMenuItem<String>(
                                   value: 'logout',
                                   child: Row(
-                                    children: const [
+                                    children: [
                                       Icon(Icons.logout, color: Colors.brown),
                                       SizedBox(width: 8),
                                       Text(

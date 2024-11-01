@@ -3,7 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 
 class ConfigurationSettingsPage extends StatefulWidget {
   final String userId;
-  const ConfigurationSettingsPage({Key? key, required this.userId}) : super(key: key);
+  const ConfigurationSettingsPage({super.key, required this.userId});
 
   @override
   _ConfigurationSettingsPageState createState() => _ConfigurationSettingsPageState();
@@ -14,9 +14,9 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
   final _database = FirebaseDatabase.instance.ref();
   
   // Map to store room configurations
-  Map<String, Map<String, dynamic>> _roomConfigs = {};
+  final Map<String, Map<String, dynamic>> _roomConfigs = {};
   // List to store selected rooms for bulk configuration
-  Set<String> _selectedRooms = {};
+  final Set<String> _selectedRooms = {};
   // List to store all rooms in the location
   List<String> _rooms = [];
   
@@ -69,7 +69,7 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5E6D3),
+      backgroundColor: const Color(0xFFF5E6D3),
       body: Stack(
         children: [
           Positioned(
@@ -87,16 +87,16 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
                 _buildAppBar(),
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Form(
                       key: _formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildRoomSelection(),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           _buildConfigurationCards(),
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
                           _buildSaveButton(),
                         ],
                       ),
@@ -117,11 +117,11 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
       child: Row(
         children: [
           IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.pop(context),
           ),
-          SizedBox(width: 12),
-          Text(
+          const SizedBox(width: 12),
+          const Text(
             'Room Configuration',
             style: TextStyle(
               fontSize: 24,
@@ -137,7 +137,7 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
   Widget _buildRoomSelection() {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -149,7 +149,7 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
                 color: Colors.brown[700],
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Wrap(
               spacing: 8,
               children: _rooms.map((room) {
@@ -194,9 +194,9 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
     final config = _roomConfigs[room]!;
     
     return Card(
-      margin: EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -208,9 +208,9 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
                 color: Colors.brown[700],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildPrioritySection(room, config),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildThresholdSection(room, config),
           ],
         ),
@@ -222,8 +222,8 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Priorities', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        SizedBox(height: 8),
+        const Text('Priorities', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 8),
         _buildPrioritySlider('Temperature', room, 'temperature', config),
         _buildPrioritySlider('Humidity', room, 'humidity', config),
         _buildPrioritySlider('Gas', room, 'gas', config),
@@ -256,8 +256,8 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Thresholds', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        SizedBox(height: 8),
+        const Text('Thresholds', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 8),
         _buildThresholdFields('Temperature', room, 'temperature', '°C', config),
         _buildThresholdFields('Humidity', room, 'humidity', '%', config),
         _buildThresholdFields('Gas', room, 'gas', 'ppm', config),
@@ -270,7 +270,7 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Row(
           children: [
             Expanded(
@@ -278,7 +278,7 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
                 initialValue: config['thresholds'][field]['medium'].toString(),
                 decoration: InputDecoration(
                   labelText: 'Medium ($unit)',
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
@@ -290,13 +290,13 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
                 },
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Expanded(
               child: TextFormField(
                 initialValue: config['thresholds'][field]['maximum'].toString(),
                 decoration: InputDecoration(
                   labelText: 'Maximum ($unit)',
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
@@ -310,7 +310,7 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
             ),
           ],
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
       ],
     );
   }
@@ -321,13 +321,13 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.brown[700],
-          padding: EdgeInsets.symmetric(vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 15),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
         ),
         onPressed: _saveConfiguration,
-        child: Text(
+        child: const Text(
           'Save Configuration',
           style: TextStyle(fontSize: 16, color: Colors.white),
         ),
@@ -358,7 +358,7 @@ class _ConfigurationSettingsPageState extends State<ConfigurationSettingsPage> {
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Configuration saved successfully')),
+          const SnackBar(content: Text('Configuration saved successfully')),
         );
       }
     } catch (e) {

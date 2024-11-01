@@ -7,7 +7,7 @@ import '../../../widgets/bottom_bar.dart'; // Add this import
 class CommunicationAlertsPageSafetyPerson extends StatefulWidget {  // Changed to StatefulWidget
   final String userId;
 
-  const CommunicationAlertsPageSafetyPerson({Key? key, required this.userId}) : super(key: key);
+  const CommunicationAlertsPageSafetyPerson({super.key, required this.userId});
 
   @override
   State<CommunicationAlertsPageSafetyPerson> createState() => _CommunicationAlertsPageSafetyPersonState();
@@ -41,8 +41,8 @@ class _CommunicationAlertsPageSafetyPersonState extends State<CommunicationAlert
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: Text(
                     'Communication & Alerts',
                     style: TextStyle(
@@ -63,14 +63,14 @@ class _CommunicationAlertsPageSafetyPersonState extends State<CommunicationAlert
                           Icons.chat,
                           () => Navigator.push(context, MaterialPageRoute(builder: (context) => GroupChatPage(userId: widget.userId,))),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         _buildCard(
                           context,
                           'Factory Manager Alerts',
                           Icons.notifications_active,
                           () => Navigator.push(context, MaterialPageRoute(builder: (context) => SafetyPersonBroadcastsPage(userId: widget.userId,))),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         _buildCard(
                           context,
                           'Employee Complaints',
@@ -104,10 +104,10 @@ class _CommunicationAlertsPageSafetyPersonState extends State<CommunicationAlert
           child: Row(
             children: [
               Icon(icon, size: 40, color: Colors.brown[700]),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Text(
                 title,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ],
           ),

@@ -7,9 +7,9 @@ class NotificationsPage extends StatefulWidget {
   final String userId;
 
   const NotificationsPage({
-    Key? key, 
+    super.key, 
     required this.userId,
-  }) : super(key: key);
+  });
 
   @override
   _NotificationsPageState createState() => _NotificationsPageState();
@@ -132,12 +132,12 @@ class _NotificationsPageState extends State<NotificationsPage> {
       3: [], // Serious danger
     };
 
-    affectedRooms.forEach((roomInfo) {
+    for (var roomInfo in affectedRooms) {
       final level = int.tryParse(roomInfo['level'].toString()) ?? 0;
       if (level == 2 || level == 3) {
         roomsByLevel[level]!.add(roomInfo['name']);
       }
-    });
+    }
 
     // Create notifications based on danger levels
     if (roomsByLevel[3]!.isNotEmpty) {

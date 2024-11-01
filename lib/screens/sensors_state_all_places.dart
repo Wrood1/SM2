@@ -8,7 +8,7 @@ import 'configuration/location_management.dart';
 class CombinedSensorsPage extends StatefulWidget {
   final String userId;
   
-  const CombinedSensorsPage({Key? key, required this.userId}) : super(key: key);
+  const CombinedSensorsPage({super.key, required this.userId});
 
   @override
   _CombinedSensorsPageState createState() => _CombinedSensorsPageState();
@@ -181,7 +181,7 @@ class _CombinedSensorsPageState extends State<CombinedSensorsPage> {
           ),
           Text(
             'Level $level',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -189,13 +189,13 @@ class _CombinedSensorsPageState extends State<CombinedSensorsPage> {
   }
 
   Widget _buildThresholdInfo(Map<String, dynamic> room) {
-    if (configuration == null) return SizedBox.shrink();
+    if (configuration == null) return const SizedBox.shrink();
     
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Sensor Thresholds:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        SizedBox(height: 10),
+        const Text('Sensor Thresholds:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 10),
         _buildThresholdRow('Temperature', room['avgTemp'], 
             configuration!['thresholds']['temperature']['medium'],
             configuration!['thresholds']['temperature']['maximum']),
@@ -214,13 +214,13 @@ class _CombinedSensorsPageState extends State<CombinedSensorsPage> {
         : value <= maximum ? Colors.orange : Colors.red;
     
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(sensor),
           Text(
-            '${value.toStringAsFixed(1)}',
+            value.toStringAsFixed(1),
             style: TextStyle(color: valueColor, fontWeight: FontWeight.bold),
           ),
           Text('Med: $medium, Max: $maximum'),
@@ -243,7 +243,7 @@ class _CombinedSensorsPageState extends State<CombinedSensorsPage> {
    @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFD2BEB5),
+      backgroundColor: const Color(0xFFD2BEB5),
       body: SafeArea(
         child: Column(
           children: [
@@ -261,12 +261,12 @@ class _CombinedSensorsPageState extends State<CombinedSensorsPage> {
   }
 
   Widget _buildRoomTabs() {
-    return Container(
+    return SizedBox(
       height: 50,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: rooms.length + 1,
-        padding: EdgeInsets.symmetric(horizontal: 10),  // Added padding
+        padding: const EdgeInsets.symmetric(horizontal: 10),  // Added padding
         itemBuilder: (context, index) {
           if (index == rooms.length) {
             return _buildAddRoomTab();
@@ -288,14 +288,14 @@ class _CombinedSensorsPageState extends State<CombinedSensorsPage> {
         );
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        margin: EdgeInsets.only(left: 10, right: 10),  // Added right margin
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        margin: const EdgeInsets.only(left: 10, right: 10),  // Added right margin
         decoration: BoxDecoration(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(25),
           border: Border.all(color: Colors.white),
         ),
-        child: Row(
+        child: const Row(
           mainAxisSize: MainAxisSize.min,  // Added to prevent expansion
           children: [
             Icon(Icons.add, color: Colors.white),
@@ -315,21 +315,21 @@ class _CombinedSensorsPageState extends State<CombinedSensorsPage> {
 
 Widget _buildRoomDetails() {
     if (isLoading) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
     if (errorMessage.isNotEmpty) {
       return Center(child: Text(errorMessage));
     }
     if (rooms.isEmpty) {
-      return Center(child: Text('No rooms found for this user'));
+      return const Center(child: Text('No rooms found for this user'));
     }
 
     Map<String, dynamic> room = rooms[selectedRoomIndex];
     int roomLevel = room['level'] ?? 1;
 
     return Container(
-      margin: EdgeInsets.fromLTRB(12, 8, 12, 8),
-      padding: EdgeInsets.all(12),
+      margin: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -346,11 +346,11 @@ Widget _buildRoomDetails() {
                 flex: 2,
                 child: Text(
                   'Room ${room['ID'] ?? 'Unknown'}',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Expanded(
                 flex: 3,
                 child: Text(
@@ -365,7 +365,7 @@ Widget _buildRoomDetails() {
               ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           
           // Danger Level Text
           Text(
@@ -376,23 +376,23 @@ Widget _buildRoomDetails() {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           
           // Level Indicator
           SizedBox(
             height: 100,
             child: _buildLevelIndicator(roomLevel),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           
           // Sensor Grid - Remove fixed height constraint
           _buildSensorGrid(room),
           
           // Expanded Content
           if (isExpanded) ...[
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             _buildThresholdInfo(room),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             _buildToolsList(room),
           ],
           
@@ -420,7 +420,7 @@ Widget _buildSensorGrid(Map<String, dynamic> room) {
   return GridView.count(
     crossAxisCount: 2,
     shrinkWrap: true,
-    physics: NeverScrollableScrollPhysics(),
+    physics: const NeverScrollableScrollPhysics(),
     childAspectRatio: 1.4,
     mainAxisSpacing: 8,
     crossAxisSpacing: 8,
@@ -442,7 +442,7 @@ Widget _buildSensorTile(String title, dynamic value, IconData icon) {
   String displayValue = parsedValue != null ? '${parsedValue.toStringAsFixed(1)}%' : 'N/A';
 
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
     decoration: BoxDecoration(
       color: Colors.grey[200],
       borderRadius: BorderRadius.circular(10),
@@ -454,20 +454,20 @@ Widget _buildSensorTile(String title, dynamic value, IconData icon) {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Icon(icon, size: 18),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Expanded(
               child: Text(
                 title,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
         ),
-        SizedBox(height: 6),
+        const SizedBox(height: 6),
         Text(
           displayValue,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -479,7 +479,7 @@ Widget _buildSensorTile(String title, dynamic value, IconData icon) {
 
 Widget _buildAddSensorTile() {
   return Container(
-    padding: EdgeInsets.all(8),
+    padding: const EdgeInsets.all(8),
     decoration: BoxDecoration(
       color: Colors.grey[200],
       borderRadius: BorderRadius.circular(10),
@@ -503,10 +503,10 @@ Widget _buildAddSensorTile() {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          Text(
+          const Text(
             'Sensors',
             style: TextStyle(
               fontSize: 24,
@@ -514,7 +514,7 @@ Widget _buildAddSensorTile() {
               color: Colors.black,
             ),
           ),
-          SizedBox(width: 48), // Placeholder to balance the back button
+          const SizedBox(width: 48), // Placeholder to balance the back button
         ],
       ),
     );
@@ -532,8 +532,8 @@ Widget _buildAddSensorTile() {
         });
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        margin: EdgeInsets.only(left: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        margin: const EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
           color: isSelected ? Colors.white : Colors.transparent,
           borderRadius: BorderRadius.circular(25),
@@ -572,7 +572,7 @@ Widget _buildAddSensorTile() {
           ),
           Text(
             '${value.toStringAsFixed(0)}%',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -599,8 +599,8 @@ Widget _buildAddSensorTile() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Tools:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        SizedBox(height: 10),
+        const Text('Tools:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 10),
         ListView.builder(
           shrinkWrap: true,
           itemCount: roomTools.length,

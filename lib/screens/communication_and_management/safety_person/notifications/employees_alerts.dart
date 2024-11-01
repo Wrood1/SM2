@@ -33,9 +33,9 @@ class SafetyPersonComplaintsPage extends StatefulWidget {
   final String safetyPersonId;
 
   const SafetyPersonComplaintsPage({
-    Key? key,
+    super.key,
     required this.safetyPersonId,
-  }) : super(key: key);
+  });
 
   @override
   _SafetyPersonComplaintsPageState createState() => _SafetyPersonComplaintsPageState();
@@ -276,10 +276,10 @@ class _SafetyPersonComplaintsPageState extends State<SafetyPersonComplaintsPage>
                 }
               }
             },
-            child: const Text('Submit'),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.brown[700],
             ),
+            child: const Text('Submit'),
           ),
         ],
         shape: RoundedRectangleBorder(

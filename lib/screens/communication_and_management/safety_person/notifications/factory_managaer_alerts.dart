@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class SafetyPersonBroadcastsPage extends StatelessWidget {
   final String userId;
 
-  const SafetyPersonBroadcastsPage({Key? key, required this.userId}) : super(key: key);
+  const SafetyPersonBroadcastsPage({super.key, required this.userId});
 
   void _logError(String operation, dynamic error, StackTrace? stackTrace) {
     print('Error during $operation:');

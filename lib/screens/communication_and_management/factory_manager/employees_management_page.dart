@@ -5,8 +5,7 @@ import '../../../widgets/bottom_bar.dart';
 class FactoryManagementPage extends StatefulWidget {
   final String factoryManagerId;
 
-  const FactoryManagementPage({Key? key, required this.factoryManagerId})
-      : super(key: key);
+  const FactoryManagementPage({super.key, required this.factoryManagerId});
 
   @override
   _FactoryManagementPageState createState() => _FactoryManagementPageState();

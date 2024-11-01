@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class GroupChatPage extends StatefulWidget {
   final String userId;
 
-  const GroupChatPage({Key? key, required this.userId}) : super(key: key);
+  const GroupChatPage({super.key, required this.userId});
 
   @override
   _GroupChatPageState createState() => _GroupChatPageState();
@@ -51,14 +51,14 @@ class _GroupChatPageState extends State<GroupChatPage> {
 
   Widget _buildMessageComposer() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       color: Colors.white,
       child: Row(
         children: [
           Expanded(
             child: TextField(
               controller: _messageController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Type a message...',
                 border: InputBorder.none,
               ),
@@ -66,7 +66,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
             ),
           ),
           IconButton(
-            icon: Icon(Icons.send),
+            icon: const Icon(Icons.send),
             color: Colors.blue,
             onPressed: () => _sendMessage(),
           ),
@@ -90,7 +90,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
     if (_factoryManagerId == null || _factoryManagerId!.isEmpty) {
       print('Factory Manager ID is null or empty');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Unable to send message. User data not loaded.')),
+        const SnackBar(content: Text('Unable to send message. User data not loaded.')),
       );
       return;
     }
@@ -151,8 +151,8 @@ class _GroupChatPageState extends State<GroupChatPage> {
           SafeArea(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: Text(
                     'Factory Group Chat',
                     style: TextStyle(
@@ -164,7 +164,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                 ),
                 Expanded(
                   child: _isLoading
-                      ? Center(child: CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : StreamBuilder<QuerySnapshot>(
   stream: FirebaseFirestore.instance
       .collection('group_chat')
@@ -197,7 +197,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
     }
 
     if (!snapshot.hasData) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
 
                             List<DocumentSnapshot> docs = snapshot.data!.docs;
@@ -251,7 +251,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
     required Timestamp timestamp,
   }) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Column(
         crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
@@ -263,7 +263,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             decoration: BoxDecoration(
               color: isMe ? Colors.brown[300] : Colors.white,
               borderRadius: BorderRadius.circular(20),
