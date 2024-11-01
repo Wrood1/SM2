@@ -9,10 +9,10 @@
 #include "addons/RTDBHelper.h"
 
 // Insert Firebase project API Key
-#define API_KEY "AIzaSyDUbfmKkpAG5P6y983ZVG8lh-xpxf2cqDw"
+#define API_KEY ;
 
 // Insert RTDB URLefine the RTDB URL */
-#define DATABASE_URL "https://smart-64616-default-rtdb.firebaseio.com/"
+#define DATABASE_URL ;
 
 //Define Firebase Data object
 FirebaseData fbdo;
