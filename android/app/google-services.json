@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "495145618386",
+    "firebase_url": "https://smart-64616-default-rtdb.firebaseio.com",
+    "project_id": "smart-64616",
+    "storage_bucket": "smart-64616.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495145618386:android:44f93d67ee2d52173e160b",
+        "android_client_info": {
+          "package_name": "com.example.smartsavior2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2UEWd6GobflhiSUcSeGd8ykTsZ9ZJg2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495145618386:android:c6e3d18c5fc553b73e160b",
+        "android_client_info": {
+          "package_name": "com.smartsavior.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2UEWd6GobflhiSUcSeGd8ykTsZ9ZJg2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
